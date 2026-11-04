@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# إغلاق أي جلسة قديمة
+tmux kill-server 2>/dev/null
+sleep 0.5
+
+# إنشاء جلسة جديدة
+tmux new-session -d -s cyber -n "HUD"
+
+# تقسيم الشاشة
+tmux split-window -h -p 40 -t cyber
+sleep 0.5
+tmux split-window -v -p 30 -t cyber:0.1
+sleep 0.5
+
+# تفعيل التحكم بالفأرة
+tmux set -g mouse on
+
+# 1. الجزء الأيسر: أداتك المرعبة
+tmux send-keys -t cyber:0.0 'clear && ~/shehab.sh' C-m
+sleep 0.5
+
+# 2. الجزء الأيمن العلوي: صورتك الشفافة (بدون خلفية)
+tmux send-keys -t cyber:0.1 'clear && chafa --format symbols --colors 256 --fill none --size 45x35 ~/my_image_clean.png' C-m
+sleep 0.5
+
+# 3. الجزء الأيمن السفلي: المصفوفة الحمراء
+tmux send-keys -t cyber:0.2 'clear && cmatrix -C red' C-m
+
+# إخفاء الحدود
+tmux set-option -t cyber pane-border-style fg=black
+tmux set-option -t cyber pane-active-border-style fg=black
+tmux set-option -t cyber status off
+
+# توجيه المؤشر للأداة
+tmux select-pane -t cyber:0.0
+
+# الدخول للواجهة
+tmux attach -t cyber

@@ -1,0 +1,12 @@
+#!/bin/bash
+echo -e "\e[1;31m[+] Starting Installation of Shehab Aq OSINT Tools...\e[0m"
+
+# 1. تحديث النظام وتثبيت الأدوات الأساسية
+sudo apt update
+sudo apt install -y python3 python3-pip git nmap whois dnsrecon
+
+# 2. تثبيت أدوات الـ OSINT عبر بايثون (pip)
+echo -e "\e[1;33m[+] Installing Sherlock, Holehe, TheHarvester, PhoneInfoga...\e[0m"
+sudo pip3 install --break-system-packages sherlock-project holehe theHarvester phoneinfoga
+
+echo -e "\e[1;32m[+] Installation Complete! You can now run your tool using: ./shehab\e[0m"
